@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Squar from "./components/Squar"
 
-function App() {
-  const [count, setCount] = useState(0)
+function Board() {
+  const [squareValue ,setsquareValue] = useState(Array(9).fill(null))
+  const [xIsNext ,setxIsNext] = useState(true)
 
+const handleClick =(indexVal)=>{
+  if (squareValue[indexVal]) {
+    return;
+  }
+  const newSquareValue = squareValue.slice();
+  if (xIsNext) {
+    newSquareValue[indexVal] = "X";
+  }else {
+    newSquareValue[indexVal] = "O";
+  }
+  setsquareValue(newSquareValue);
+  setxIsNext(!xIsNext);
+}
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="square-btn-area">
+      <Squar handleClick={()=>handleClick(0)} value={squareValue[0] }/>
+      <Squar handleClick={()=>handleClick(1)} value={squareValue[1] }/>
+      <Squar handleClick={()=>handleClick(2)} value={squareValue[2] }/>
+        
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="square-btn-area">
+        <Squar handleClick={()=>handleClick(3)} value={squareValue[3] }/>
+        <Squar handleClick={()=>handleClick(4)} value={squareValue[4] }/>
+        <Squar handleClick={()=>handleClick(5)} value={squareValue[5] }/>
+
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="square-btn-area">
+        <Squar handleClick={()=>handleClick(6)} value={squareValue[6] }/>
+        <Squar handleClick={()=>handleClick(7)} value={squareValue[7] }/>
+        <Squar handleClick={()=>handleClick(8)} value={squareValue[8] }/>
+
+      </div>
     </>
   )
 }
 
-export default App
+export default Board
